@@ -1,0 +1,10 @@
+on run {input, parameters}
+    set file_path to POSIX path of (path to home folder) & ".dandy/query.txt"
+    set open_file to (open for access (POSIX file file_path) with write permission)
+    write input to open_file as «class utf8»
+    close access open_file
+
+    do shell script "ruby ~/.dandy/run.rb"
+
+    return "~/.dandy/output.html"
+end run

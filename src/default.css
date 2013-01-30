@@ -1,0 +1,68 @@
+html, body, section, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+body {
+    color: #333;
+    font: 14px/1.5 "HCR Batang", SeoulHangang, "Apple SD Gothic Neo", NanumGothic, serif;
+}
+a {
+    color: inherit;
+    font: inherit;
+    font-style: italic;
+    text-decoration: none;
+}
+section {
+    bottom: 30px;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+h1, h2 {
+    font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;
+}
+article {
+    background-image: -webkit-linear-gradient(top, #eee 0, #fff 10px);
+    padding: 1em;
+}
+    article h1 {
+        color: #b82647;
+        font-size: 1.5em;
+    }
+    article h2 {
+        color: #0b6db7;
+        font-size: 1.5em
+    }
+        article h2 span {
+            color: #ccc;
+            margin: 0 .25em;
+        }
+p.error, p.passed {
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    margin-top: 100px;
+    padding-top: 100px;
+    text-align: center;
+}
+    p.error {
+        background-image: url(error.png);
+    }
+    p.passed {
+        background-image: url(passed.png);
+    }
+footer {
+    background: #494949;
+    bottom: 0;
+    box-sizing: border-box;
+    color: #fff;
+    font: 12px "Apple SD Gothic Neo", NanumGothic, sans-serif;
+    height: 30px;
+    line-height: 30px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+#source {
+    display: none;
+}
