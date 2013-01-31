@@ -7,7 +7,7 @@
 터미널에서 아래 명령어를 입력합니다.
 
 ```sh
-curl https://raw.github.com/fallroot/dandy/bin/install.sh | sh
+crul https://raw.github.com/fallroot/dandy/master/bin/install.sh | sh
 ```
 
 ## 삭제
@@ -15,7 +15,7 @@ curl https://raw.github.com/fallroot/dandy/bin/install.sh | sh
 터미널에서 아래 명령어를 입력합니다.
 
 ```sh
-curl https://raw.github.com/fallroot/dandy/bin/uninstall.sh | sh
+curl https://raw.github.com/fallroot/dandy/master/bin/uninstall.sh | sh
 ```
 
 ## 사용법
