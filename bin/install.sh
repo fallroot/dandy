@@ -21,12 +21,13 @@ for file in default.css default.js error.png passed.png run.rb template.html; do
     curl https://raw.github.com/fallroot/dandy/master/src/$file -o ~/.dandy/$file
 done
 
-echo "실행 파일을 설치합니다."
+echo "워크플로우 파일을 설치합니다."
 
 # 압축한 워크플로우 파일을 해제하여 서비스 디렉토리에 옮긴다.
 curl https://raw.github.com/fallroot/dandy/master/build/dandy.zip -o ~/.dandy/dandy.zip
+rm -f ~/Library/Services/._dandy.workflow
 unzip ~/.dandy/dandy.zip -d ~/Library/Services
-rm ~/.dandy/dandy.zip
+rm -f ~/.dandy/dandy.zip
 
 # 서비스 메뉴에 보이도록 활성화한다.
 /System/Library/CoreServices/pbs -flush

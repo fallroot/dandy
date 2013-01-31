@@ -14,10 +14,10 @@
 echo "한국어 맞춤법/문법 검사기 도우 “단디”를 삭제합니다."
 
 echo "홈 디렉토리 아래 .dandy 디렉토리를 삭제합니다."
-rm -r ~/.dandy/
+rm -rf ~/.dandy/
 
 echo "실행 파일을 삭제합니다."
-rm -r ~/Library/Services/dandy.workflow
+rm -rf ~/Library/Services/dandy.workflow
 
 # 서비스 메뉴에서 삭제한다.
 /System/Library/CoreServices/pbs -flush
