@@ -17,6 +17,6 @@ echo "홈 디렉토리 아래 .dandy 디렉토리를 삭제합니다."
 rm -r ~/.dandy/
 
 echo "실행 파일을 삭제합니다."
-rm ~/Library/Services/dandy.workflow
+rm -r ~/Library/Services/dandy.workflow
 
 echo "단디 삭제가 끝났습니다."
