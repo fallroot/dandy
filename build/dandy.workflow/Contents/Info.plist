@@ -16,6 +16,9 @@
 			<array>
 				<string>public.utf8-plain-text</string>
 			</array>
+			<key>NSRequiredContext</key>
+			<dict>
+			</dict>
 		</dict>
 	</array>
 </dict>
