@@ -19,4 +19,7 @@ rm -r ~/.dandy/
 echo "실행 파일을 삭제합니다."
 rm -r ~/Library/Services/dandy.workflow
 
+# 서비스 메뉴에서 삭제한다.
+/System/Library/CoreServices/pbs -flush
+
 echo "단디 삭제가 끝났습니다."
