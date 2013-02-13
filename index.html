@@ -73,6 +73,8 @@
 <h3>아이콘</h3>
 
 <p><a href="http://gemicon.net/">Gemicon</a>에서 제공하는 아이콘을 사용했습니다.</p>
+        <div id="disqus_thread"></div>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       </section>
     </div>
     <footer>
@@ -80,6 +82,14 @@
       <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+    <script type="text/javascript">
+        var disqus_shortname = 'dandy-on-mac';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
   </body>
 </html>
