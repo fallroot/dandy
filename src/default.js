@@ -1,9 +1,13 @@
 (function(window, undefined) {
     'use strict';
 
-    var source  = document.getElementById('source');
-    var count   = document.getElementById('correctionTableSize');
-    var answers = document.getElementById('answers');
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    var source  = $('source');
+    var count   = $('correctionTableSize');
+    var answers = $('answers');
 
     answers.dataset.showDescription = !!settings.showDescription;
 
@@ -51,11 +55,14 @@
     }
 
     function initHandler() {
-        document.getElementById('toggle-settings').addEventListener('click', function(event) {
+        $('toggle-settings').addEventListener('click', function(event) {
             // event.preventDefault();
-            console.log('hi');
-            document.getElementById('settings').classList.toggle('active');
+            $('settings').classList.toggle('active');
         });;
+
+        $('show-description').addEventListener('change', function(event) {
+            answers.dataset.showDescription = settings.showDescription = this.checked;
+        });
     }
 
     initHandler();
