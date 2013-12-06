@@ -3,7 +3,7 @@ html, body, header, footer, section, article, h1, h2, p, button, input {
     padding: 0;
 }
 body {
-    color: #333;
+    color: #000;
     font: 14px/1.5 NanumBarunGothic, "Apple SD Gothic Neo", NanumGothic, sans-serif;
 }
 
@@ -15,19 +15,20 @@ button {
 }
 
 header {
+    background: #f8f8f8;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
     height: 50px;
     line-height: 50px;
     left: 0;
     position: fixed;
+    text-align: center;
     top: 0;
     width: 100%;
     z-index: 1000;
 }
-header a {
-    display: block;
-    text-align: center;
+header h1 {
+    font-size: 18px;
 }
-
 #settings {
     display: none;
     position: absolute;
@@ -62,16 +63,18 @@ h1, h2 {
     /*font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;*/
 }
 article {
-    background-image: -webkit-linear-gradient(top, #eee 0, #fff 10px);
+    /*background-image: -webkit-linear-gradient(top, #eee 0, #fff 10px);*/
+    /*box-shadow: 0 -1px rgba(0,0,0,0.08),0 1px rgba(0,0,0,0.07),0 1px 1px rgba(0,0,0,0.05);*/
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
     padding: 1em;
 }
     article h1 {
-        color: #b82647;
-        font-size: 1.5em;
+        /*color: #b82647;*/
+        font-size: 18px;
     }
     article h2 {
         color: #0b6db7;
-        font-size: 1.5em
+        font-size: 16px;
     }
         article h2 span {
             color: #ccc;
@@ -108,4 +111,32 @@ footer {
 }
 #source {
     display: none;
+}
+
+.answer {
+    margin-top: 10px;
+}
+.answer label {
+    border: 1px solid #2087fc;
+    border-left: 0;
+    color: #2087fc;
+    display: inline-block;
+    padding: 10px;
+}
+.answer label:first-of-type {
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid #2087fc;
+    border-top-left-radius: 5px;
+}
+.answer label:last-of-type {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.answer input[type=radio] {
+    display: none;
+    -webkit-transition: background-color 1s;
+}
+.answer input[type=radio]:checked + label {
+    background: #2087fc;
+    color: #fff;
 }
