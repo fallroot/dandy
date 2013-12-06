@@ -3,7 +3,9 @@
 
     var source  = document.getElementById('source');
     var count   = document.getElementById('correctionTableSize');
-    var answers = document.querySelector('section');
+    var answers = document.getElementById('answers');
+
+    answers.dataset.showDescription = !!settings.showDescription;
 
     // correctionTableSize가 존재하면 파싱까지는 정상으로 본다.
     if (count) {
@@ -19,15 +21,17 @@
                 var article = document.createElement('article');
                 var h1 = document.createElement('h1');
                 var h2 = document.createElement('h2');
-                var p = document.createElement('p');
+                var description = document.createElement('p');
+
+                description.classList.add('description');
 
                 h1.innerHTML = query;
                 h2.innerHTML = answer;
-                p.innerHTML = comment;
+                description.innerHTML = comment;
 
                 article.appendChild(h1);
                 article.appendChild(h2);
-                article.appendChild(p);
+                article.appendChild(description);
 
                 answers.appendChild(article);
             });
@@ -45,4 +49,14 @@
 
         answers.appendChild(p);
     }
+
+    function initHandler() {
+        document.getElementById('toggle-settings').addEventListener('click', function(event) {
+            // event.preventDefault();
+            console.log('hi');
+            document.getElementById('settings').classList.toggle('active');
+        });;
+    }
+
+    initHandler();
 })(window);

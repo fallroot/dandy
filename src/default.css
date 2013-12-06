@@ -1,4 +1,4 @@
-html, body, header, footer, section, article, h1, h2, p {
+html, body, header, footer, section, article, h1, h2, p, button, input {
     margin: 0;
     padding: 0;
 }
@@ -6,6 +6,14 @@ body {
     color: #333;
     font: 14px/1.5 NanumBarunGothic, "Apple SD Gothic Neo", NanumGothic, sans-serif;
 }
+
+a, button, label {
+    cursor: pointer;
+}
+button {
+    border: 0;
+}
+
 header {
     height: 50px;
     line-height: 50px;
@@ -13,11 +21,31 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1000;
 }
 header a {
     display: block;
     text-align: center;
 }
+
+#settings {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+}
+#settings.active {
+    display: block;
+}
+#toggle-settings {
+    background: url(settings.png) no-repeat 50% 50%;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+}
+
 a {
     color: inherit;
     font: inherit;
@@ -49,6 +77,10 @@ article {
             color: #ccc;
             margin: 0 .25em;
         }
+
+[data-show-description=false] article .description {
+    display: none;
+}
 p.error, p.passed {
     background-position: 50% 0;
     background-repeat: no-repeat;

@@ -10,8 +10,15 @@
             <a href="http://fallroot.github.io/dandy/">
                 <h1>단디</h1>
             </a>
+            <button id="toggle-settings"></button>
+            <ul id="settings">
+                <li>
+                    <label for="show-description">상세 설명 보기</label>
+                    <input id="show-description" type="radio">
+                </li>
+            </ul>
         </header>
-        <section></section>
+        <section id="answers"></section>
         <footer>
             부산대학교 한국어 맞춤법/문법 검사기를 사용합니다. <a href="http://twitter.com/fallroot">@fallroot</a>
         </footer>
@@ -1125,6 +1132,11 @@ SNS 계정과 연계하여 작성된 댓글 등 사용자가 생성한 콘텐츠
 		</TD></TR></TABLE>
 
 	</div>
+        <script>
+            var settings = {
+                showDescription: false
+            };
+        </script>
         <script src="../src/default.js"></script>
     </body>
 </html>
