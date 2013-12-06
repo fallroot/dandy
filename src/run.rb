@@ -14,7 +14,7 @@ query = File.read query_file
 File.delete query_file
 
 # 부산대 맞춤법/문법 검사기 접속
-uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201209/lib/PnuSpellerISAPI_201209.dll?Check'
+uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201309/lib/PnuSpellerISAPI_201309.dll?Check'
 
 http = Net::HTTP.new uri.host, uri.port
 
