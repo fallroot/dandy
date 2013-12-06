@@ -21,15 +21,16 @@ header {
     line-height: 50px;
     left: 0;
     position: fixed;
-    text-align: center;
     top: 0;
     width: 100%;
     z-index: 1000;
 }
 header h1 {
     font-size: 18px;
+    text-align: center;
 }
 #settings {
+    background: #fff;
     display: none;
     position: absolute;
     right: 0;
@@ -138,5 +139,59 @@ footer {
 }
 .answer input[type=radio]:checked + label {
     background: #2087fc;
-    color: #fff;
+    color: #e0eaf5;
+}
+.answer label:hover {
+    background: #dde9f5;
+}
+
+/* iOS 스타일 체크박스 */
+input[type=checkbox] {
+    appearance: none;
+    background-color: darken(#fff, 2%);
+    border: 1px solid #d3d3d3;
+    border-radius: 26px;
+    box-shadow: inset 0 0 0 1px #d3d3d3;
+    cursor: pointer;
+    height: 28px;
+    position: relative;
+    transition: border .25s .15s,
+              box-shadow .25s .3s,
+              padding .25s;
+    width: 44px;
+    vertical-align: top;
+}
+input[type=checkbox]:after {
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    border-radius: 24px;
+    box-shadow: inset 0 -3px 3px hsla(0,0%,0%,.025),
+                0 1px 4px hsla(0,0%,0%,.15),
+                0 4px 4px hsla(0,0%,0%,.1);
+    content: '';
+    display: block;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    right: 16px;
+    top: 0;
+    transition: border .25s .15s,
+                left .25s .1s,
+                right .15s .175s;
+}
+input[type=checkbox]:checked {
+    border-color: #53d76a;
+    box-shadow: inset 0 0 0 13px #53d76a;
+    padding-left: 18px;
+    transition: border .25s,
+                box-shadow .25s,
+                padding .25s .15s;
+}
+input[type=checkbox]:checked:after {
+  border-color: #53d76a;
+  left: 16px;
+  right: 0;
+  transition: border .25s,
+              left .15s .25s,
+              right .25s .175s;
 }
