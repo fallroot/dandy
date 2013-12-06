@@ -1,26 +1,37 @@
-html, body, section, h1, h2, p {
+html, body, header, footer, section, article, h1, h2, p {
     margin: 0;
     padding: 0;
 }
 body {
     color: #333;
-    font: 14px/1.5 "HCR Batang", SeoulHangang, "Apple SD Gothic Neo", NanumGothic, serif;
+    font: 14px/1.5 NanumBarunGothic, "Apple SD Gothic Neo", NanumGothic, sans-serif;
+}
+header {
+    height: 50px;
+    line-height: 50px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+header a {
+    display: block;
+    text-align: center;
 }
 a {
     color: inherit;
     font: inherit;
-    font-style: italic;
     text-decoration: none;
 }
 section {
     bottom: 30px;
     overflow: auto;
     position: absolute;
-    top: 0;
+    top: 50px;
     width: 100%;
 }
 h1, h2 {
-    font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;
+    /*font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;*/
 }
 article {
     background-image: -webkit-linear-gradient(top, #eee 0, #fff 10px);
