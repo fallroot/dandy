@@ -14,6 +14,10 @@
                     <label for="show-description">상세 설명 보기</label>
                     <input id="show-description" type="checkbox">
                 </li>
+                <li>
+                    <label for="default-answer">첫 번째 대치어 자동 선택</label>
+                    <input id="default-answer" type="checkbox">
+                </li>
             </ul>
         </header>
         <section id="answers"></section>
@@ -1132,6 +1136,7 @@ SNS 계정과 연계하여 작성된 댓글 등 사용자가 생성한 콘텐츠
 	</div>
         <script>
             var settings = {
+                defaultAnswer: true,
                 showDescription: true
             };
         </script>

@@ -50,6 +50,7 @@
                 article.appendChild(p);
                 article.appendChild(description);
 
+                // 선택 안 함 버튼
                 createAnswer({
                     parent: p,
                     index : index
@@ -95,6 +96,10 @@
             answers.dataset.showDescription = settings.showDescription = this.checked;
         });
 
+        $('default-answer').addEventListener('change', function(event) {
+            answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
+        });
+
         answers.addEventListener('change', function(event) {
             var el = event.target;
             var query = el.parentNode.previousSibling.innerHTML;
@@ -111,6 +116,10 @@
         radio.type  = 'radio';
         radio.name  = 'answer-' + options.index;
         radio.value = options.answer || 'none';
+
+        if (settings.defaultAnswer && options.subIndex == 1) {
+            radio.checked = true;
+        }
 
         var label = document.createElement('label');
         label.htmlFor   = id;
