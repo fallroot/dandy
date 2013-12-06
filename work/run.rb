@@ -7,11 +7,11 @@ require 'uri'
 home_dir = File.expand_path '~/.dandy'
 
 # 선택 문장 가져오기
-query_file = File.join home_dir, 'query.txt'
-query = File.read query_file
+# query_file = File.join home_dir, 'query.txt'
+query = File.read 'query.txt'
 
 # 임시로 사용한 선택 문장을 담은 파일 삭제
-File.delete query_file
+# File.delete query_file
 
 # 부산대 맞춤법/문법 검사기 접속
 uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201309/lib/PnuSpellerISAPI_201309.dll?Check'
@@ -42,7 +42,7 @@ template = File.read template_file
 template.gsub! '{{source}}', source
 
 # 최종 결과 파일에 쓰기
-output_file = File.join home_dir, 'output.html'
-File.open(output_file, 'w') do |file|
+# output_file = File.join home_dir, 'output.html'
+File.open('output.html', 'w') do |file|
     file.write template
 end
