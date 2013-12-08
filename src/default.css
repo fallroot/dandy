@@ -1,36 +1,96 @@
-html, body, header, footer, section, article, h1, h2, p, button, input {
+/* CSS 리셋 */
+html, body, header, footer, section, article, div, h1, h2, p, button, input, ul, li {
     margin: 0;
     padding: 0;
+}
+
+/* 기본 태그 */
+html, body {
+    height: 100%;
 }
 body {
     color: #000;
     font: 14px/1.5 NanumBarunGothic, "Apple SD Gothic Neo", NanumGothic, sans-serif;
 }
-
 a, button, label {
     cursor: pointer;
 }
 button {
+    background: transparent;
     border: 0;
 }
+ul {
+    list-style: none;
+}
 
+/* 화면 */
+.screen {
+    min-height: 100%;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+#home {
+    top: 0;
+    z-index: 2;
+}
+#home [data-action=settings] {
+    background: url(settings.png) no-repeat 50% 50%;
+    height: 50px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50px;
+}
+#settings [data-action=home] {
+    color: #08c;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+
+[data-screen-id=home] #home {
+}
+#settings {
+    background: #c7c7c7;
+    bottom: -1000px;
+    /*display: none;*/
+    z-index: -1;
+    -webkit-transition: bottom 1s;
+}
+#settings.active {
+    bottom: 0;
+    z-index: 3;
+}
+#settings .content {
+    padding: 20px;
+}
+/*
+[data-screen-id=settings] #settings {
+    bottom: 0;
+    z-index: 3;
+}
+*/
 header {
     background: #f8f8f8;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
     height: 50px;
     line-height: 50px;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
 }
 header h1 {
     font-size: 18px;
     text-align: center;
 }
+header button {
+    height: 50px;
+    line-height: 50px;
+}
+
+/*
 #settings {
     background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
     display: none;
     position: absolute;
     right: 0;
@@ -47,18 +107,19 @@ header h1 {
     top: 0;
     width: 50px;
 }
-
+*/
 a {
     color: inherit;
     font: inherit;
     text-decoration: none;
 }
 section {
-    bottom: 30px;
+/*    bottom: 30px;
     overflow: auto;
     position: absolute;
     top: 50px;
     width: 100%;
+*/
 }
 h1, h2 {
     /*font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;*/

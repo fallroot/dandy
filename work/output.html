@@ -5,25 +5,40 @@
         <title>한국어 맞춤법 검사기</title>
         <link rel="stylesheet" type="text/css" href="../src/default.css">
     </head>
-    <body>
-        <header>
-            <h1>단디</h1>
-            <button id="toggle-settings"></button>
-            <ul id="settings">
-                <li>
-                    <label for="show-description">상세 설명 보기</label>
-                    <input id="show-description" type="checkbox">
-                </li>
-                <li>
-                    <label for="default-answer">첫 번째 대치어 자동 선택</label>
-                    <input id="default-answer" type="checkbox">
-                </li>
-            </ul>
-        </header>
-        <section id="answers"></section>
+    <body data-screen-id="home">
+        <!-- <div id="wrap"> -->
+            <section id="home" class="screen">
+                <header>
+                    <h1>단디</h1>
+                    <button data-action="settings"></button>
+                </header>
+                <div id="answers" class="content"></div>
+            </section>
+
+            <section id="settings" class="screen">
+                <header>
+                    <h1>설정</h1>
+                    <button data-action="home">닫기</button>
+                </header>
+                <div class="content">
+                    <ul>
+                        <li>
+                            <label for="show-description">상세 설명 보기</label>
+                            <input id="show-description" type="checkbox">
+                        </li>
+                        <li>
+                            <label for="default-answer">첫 번째 대치어 자동 선택</label>
+                            <input id="default-answer" type="checkbox">
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        <!-- </div> -->
+<!--
         <footer>
             부산대학교 한국어 맞춤법/문법 검사기를 사용합니다. <a href="http://twitter.com/fallroot">@fallroot</a>
         </footer>
+-->
         <div id="source">
 
 		<!-- 세로로 가운데 정렬을 하려고 테이블로 묶음  -->
@@ -1140,6 +1155,7 @@ SNS 계정과 연계하여 작성된 댓글 등 사용자가 생성한 콘텐츠
                 showDescription: true
             };
         </script>
+        <script src="../src/jquery.js"></script>
         <script src="../src/default.js"></script>
     </body>
 </html>

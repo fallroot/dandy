@@ -1,17 +1,21 @@
 // (function(window, undefined) {
 //     'use strict';
 
-    function $(id) {
-        return document.getElementById(id);
-    }
+    $.fn.dataset = function(key, value) {
+        var field = 'data-' + key;
 
-    function $$(selector) {
-        return document.querySelectorAll(selector);
-    }
+        if (value === undefined) {
+            return this.attr(field);
+        } else if (value === null) {
+            return this.removeAttr(field);
+        } else {
+            return this.attr(field, value);
+        }
+    };
 
-    var source  = $('source');
-    var count   = $('correctionTableSize');
-    var answers = $('answers');
+    var source  = $('#source')[0];
+    var count   = $('#correctionTableSize')[0];
+    var answers = $('#answers')[0];
     var result  = {};
 
     answers.dataset.showDescription = !!settings.showDescription;
@@ -63,6 +67,7 @@
 
                     createAnswer({
                         parent  : p,
+                        query   : query,
                         answer  : answer,
                         index   : index,
                         subIndex: subIndex + 1
@@ -87,16 +92,41 @@
     }
 
     function initHandler() {
-        $('toggle-settings').addEventListener('click', function(event) {
-            // event.preventDefault();
-            $('settings').classList.toggle('active');
-        });;
+        $('#settings').on('webkitTransitionEnd', function(event) {
+            var screen = $('body').dataset('screen-id');
 
-        $('show-description').addEventListener('change', function(event) {
+            console.log(screen);
+            $(screen == 'home' ? '#settings' : '#home').removeClass('active').hide();
+        });
+
+        $('header').on('click', '[data-action]', function(event) {
+            var action = $(this).dataset('action');
+            console.log('action', action);
+
+            if (action == 'home') {
+                $('#settings').removeClass('active');
+                $('#home').show();
+                // $('#settings').on('webkitTransitionEnd', function(event) {
+                //     console.log('settings#hide');
+                //     $(this).hide();
+                // });
+            } else if (action == 'settings') {
+                $('#settings').show().addClass('active');
+            }
+
+            $('body').dataset('screen-id', action);
+        });
+
+        // $('toggle-settings').addEventListener('click', function(event) {
+        //     // event.preventDefault();
+        //     $('settings').classList.toggle('active');
+        // });;
+
+        $('#show-description').on('change', function(event) {
             answers.dataset.showDescription = settings.showDescription = this.checked;
         });
 
-        $('default-answer').addEventListener('change', function(event) {
+        $('#default-answer').on('change', function(event) {
             answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
         });
 
@@ -119,6 +149,8 @@
 
         if (settings.defaultAnswer && options.subIndex == 1) {
             radio.checked = true;
+
+            result[options.query] = options.answer;
         }
 
         var label = document.createElement('label');
