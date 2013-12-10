@@ -15,9 +15,11 @@
 
     var source  = $('#source')[0];
     var count   = $('#correctionTableSize')[0];
-    var answers = $('#answers')[0];
+    var answers = document.getElementById('answers');;
+    var reKorean = /[가-힣]+/;
     var result  = {};
 
+    answers.dataset.ignoreNonKorean = !!settings.ignoreNonKorean;
     answers.dataset.showDescription = !!settings.showDescription;
 
     // correctionTableSize가 존재하면 파싱까지는 정상으로 본다.
@@ -37,22 +39,22 @@
 
                 result[query] = '';
 
-                var article = document.createElement('article');
-                var h1 = document.createElement('h1');
-                var description = document.createElement('p');
+                var article = $('<article/>');
+                var h1 = $('<h1/>');
+                var description = $('<p/>');
 
-                description.classList.add('description');
+                description.addClass('description');
 
-                h1.innerHTML = query;
-                // h2.innerHTML = answer;
-                description.innerHTML = comment;
+                h1.html(query);
+                // h2.html(answer);
+                description.html(comment);
 
-                var p = document.createElement('p');
-                p.classList.add('answer');
+                var p = $('<p/>');
+                p.addClass('answer');
 
-                article.appendChild(h1);
-                article.appendChild(p);
-                article.appendChild(description);
+                article.append(h1);
+                article.append(p);
+                article.append(description);
 
                 // 선택 안 함 버튼
                 createAnswer({
@@ -74,21 +76,23 @@
                     });
                 });
 
-                answers.appendChild(article);
+                article.appendTo(answers);
+
+                article.dataset('korean', reKorean.test(query));
             });
         } else {
-            var p = document.createElement('p');
-            p.classList.add('passed');
-            p.innerHTML = '문법 및 철자 오류가 발견되지 않았습니다.';
+            var p = $('<p/>');
+            p.addClass('passed');
+            p.html('문법 및 철자 오류가 발견되지 않았습니다.');
 
-            answers.appendChild(p);
+            p.appendTo(answers);
         }
     } else {
-        var p = document.createElement('p');
-        p.classList.add('error');
-        p.innerHTML = source.innerHTML;
+        var p = $('<p/>');
+        p.addClass('error');
+        p.html(source.innerHTML);
 
-        answers.appendChild(p);
+        p.appendTo(answers);
     }
 
     function initHandler() {
@@ -130,7 +134,11 @@
             answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
         });
 
-        answers.addEventListener('change', function(event) {
+        $('#ignore-non-korean').on('change', function(event) {
+            answers.dataset.ignoreNonKorean = settings.ignoreNonKorean = this.checked;
+        });
+
+        $(answers).on('change', ':checkbox', function(event) {
             var el = event.target;
             var query = el.parentNode.previousSibling.innerHTML;
 
@@ -141,24 +149,28 @@
     function createAnswer(options) {
         var id = ['answer', options.index, options.subIndex || 0].join('-');
 
-        var radio = document.createElement('input');
-        radio.id    = id;
-        radio.type  = 'radio';
-        radio.name  = 'answer-' + options.index;
-        radio.value = options.answer || 'none';
+        var radio = $('<input/>');
+
+        radio.attr({
+            id   : id,
+            type : 'radio',
+            name : 'answer-' + options.index,
+            value: options.answer || 'none'
+        });
 
         if (settings.defaultAnswer && options.subIndex == 1) {
-            radio.checked = true;
+            radio.prop('checked', true);
 
             result[options.query] = options.answer;
         }
 
-        var label = document.createElement('label');
-        label.htmlFor   = id;
-        label.innerHTML = options.answer || '&times;';
+        var label = $('<label/>');
 
-        options.parent.appendChild(radio);
-        options.parent.appendChild(label);
+        label.attr('for', id);
+        label.html(options.answer || '&times;');
+
+        options.parent.append(radio);
+        options.parent.append(label);
     }
 
     initHandler();

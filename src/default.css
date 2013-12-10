@@ -26,11 +26,11 @@ ul {
 /* 화면 */
 .screen {
     min-height: 100%;
-    left: 0;
     position: absolute;
     width: 100%;
 }
 #home {
+    left: 0;
     top: 0;
     z-index: 2;
 }
@@ -54,14 +54,14 @@ ul {
 }
 #settings {
     background: #c7c7c7;
-    bottom: -1000px;
+    right: -1000px;
     /*display: none;*/
-    z-index: -1;
-    -webkit-transition: bottom 1s;
+    /*z-index: -1;*/
+    z-index: 3;
+    -webkit-transition: right 1s;
 }
 #settings.active {
-    bottom: 0;
-    z-index: 3;
+    right: 0;
 }
 #settings .content {
     padding: 20px;
@@ -144,6 +144,9 @@ article {
         }
 
 [data-show-description=false] article .description {
+    display: none;
+}
+[data-ignore-non-korean=true] [data-korean=false] {
     display: none;
 }
 p.error, p.passed {
