@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>한국어 맞춤법 검사기</title>
+        <link rel="stylesheet" type="text/css" href="../src/default.css">
+    </head>
+    <body data-screen-id="home">
+        <section id="home" class="screen">
+            <header>
+                <h1>단디</h1>
+                <button data-action="config"></button>
+            </header>
+            <div id="answers" class="content"></div>
+        </section>
+
+        <section id="config" class="screen">
+            <header>
+                <h1>설정</h1>
+                <button data-action="home">닫기</button>
+            </header>
+            <div class="content">
+                <ul>
+                    <li>
+                        <label for="show-description">상세 설명 보기</label>
+                        <input id="show-description" type="checkbox">
+                    </li>
+                    <li>
+                        <label for="default-answer">첫 번째 대치어 자동 선택</label>
+                        <input id="default-answer" type="checkbox">
+                    </li>
+                    <li>
+                        <label for="ignore-non-korean">한글이 없는 단어 제외</label>
+                        <input id="ignore-non-korean" type="checkbox">
+                    </li>
+                    <li>
+                        <label for="show-hidden">감춘 단어 보기</label>
+                        <input id="show-hidden" type="checkbox">
+                    </li>
+                </ul>
+                <p>“단디”는 부산대학교 인공지능연구실과 (주)나라인포테크가 공동으로 만들어 제공하는 “한국어 맞춤법/문법 검사기”를 맥에서 쉽게 사용할 수 있도록 해 주는 도구입니다.</p>
+                <p>“단디”는 위 두 곳과 아무 관련이 없으며 원천 서비스 제공 업체의 정책에 따라 언제든지 서비스가 중단될 수 있습니다.</p>
+                <p>“단디”에 대해 궁금한 점은 홈페이지(<a href="http://fallroot.github.io/dandy/">fallroot.github.io/dandy/</a>) 또는 제작자(<a href="http://twitter.com/fallroot">@fallroot</a>)에게 문의 바랍니다.</p>
+            </div>
+        </section>
+
+        <div id="source">
+
+		<!-- 세로로 가운데 정렬을 하려고 테이블로 묶음  -->
+		<table border='0' cellpadding='0' cellspacing='0' width='411' height='480' >
+		<TR><TD align='center' valign='center' >
+
+<br/>
+
+<table id='tableErr_0' class='tableErrCorrect' border='1' cellpadding='3' cellspacing='0'>
+	<!--틀린어절 -->
+	<TR>
+		<TD class='tdLT' title=0>입력 내용</TD>
+		<TD id='tdErrorWord_0' class='tdErrWord' style='color:#808000;' >하기 때문에</TD>
+	</TR>
+	<!--대치어 -->
+	<TR>
+		<TD class='tdLT'>대치어</TD>
+		<TD id='tdReplaceWord_0' class='tdReplace' >하므로<br/>해서<br/></TD>
+	</TR>
+		<!--도움말 -->
+		<TR>
+			<TD class='tdLT'>도움말</TD>
+			<TD id='tdHelp_0' class='tdETNor'><br/>이런 영어투 표현은 문장의 격을 떨어트립니다.</TD>
+		</TR>
+		<!--관련사이트 -->
+			<TR>
+			<TD class='tdLT'>관련학습<br/>사이트</TD>
+			<TD class='tdETNor' align=center><a href="http://urimal.cs.pusan.ac.kr/urimal_new/learn/sentence/translation/main.asp" target="PnuSpellHelp">번역투 표현 관련</a><br/><a href="http://urimal.cs.pusan.ac.kr/urimal_new/learn/sentence/passive/main.asp" target="PnuSpellHelp">사동 피동형 문장 관련</a><a href="http://urimal.cs.pusan.ac.kr/urimal_new/learn/paragraph/expression/expression.asp" target="PnuSpellHelp">다양한 문장표현 관련</a></TD>
+		</TR>
+		<!--오류보고 -->
+		<tr id='trBugReport_0'>
+			<TD class='tdLT'>오류보고</TD>
+			<TD id='tdBugReport_0' class='tdETNor'>
+		</TD>
+</TR>
+</TABLE><br/>
+
+
+		</TD></TR></TABLE>
+
+		<!-- 오류 보고를 위한 post 변수값  -->
+		<input type='hidden' id='hiddenInputStr' name='hiddenInputStr' value='' />
+		<input type='hidden' id='hiddenErrorIdx' name='hiddenErrorIdx' />
+		<input type='hidden' id='hiddenErrorWord' name='hiddenErrorWord' />
+		<input type='hidden' id='hiddenReplaceWord' name='hiddenReplaceWord' />
+		<input type='hidden' id='hiddenComment' name='hiddenComment' />
+
+	</form>
+</DIV>
+
+
+	<!-- 오류 수  -->
+	<input type='hidden' id='correctionTableSize' value='1'/>
+
+	<!-- ------------------------ -->
+	<!-- 틀린 부분 밑줄 그어 출력 -->
+<div id='bufUnderline' style='display:none; width:300px; height:200px;'>디버깅은 프로그래머의 기본이라고 하죠! 특히 웹 애플리케이션 개발 시 브라우저 호환에 대한 요구가 점점 커지는 상황에서, 디버깅은 더욱 중요하다고 볼 수 있습니다. 코드가 실행되는 환경이 바뀌더라도 어떤 조건이 계속해서 유지되는지, 숨겨진 문제는 없는지 코드 실행 과정을 상세히 검사하는 일이 꼭 필요한데요. 자바스크립트 디버깅은 다양한 환경을 모두 고려하면서 각기 다른 도구를 사용해야 <font id='ul_0' color='Olive' class='ul' onclick="fShowHelp('0')" >하기 때문에</font> 아주 귀찮거나 까다롭게 느낄 수 있습니다.<br>
+</div>
+
+
+	<!-- =============== -->
+	<!-- =============== -->
+	<!-- 2차 교정 테이블 -->
+<DIV id='correctionTable2' style='display:none; width:300px; height:200px;'>
+	<form id='formBugReport2' name='formBugReport' action='../BugReporting.asp' method='post' accept-charset='euc-kr'>
+
+		<!-- 세로로 가운데 정렬을 하려고 테이블로 묶음  -->
+		<table border='0' cellpadding='0' cellspacing='0' width='411' height='480' >
+		<TR><TD align='center' valign='center' >
+
+<br/>
+문법 및 철자 오류가 발견되지 않았습니다.<br/><br/>
+
+
+		</TD></TR></TABLE>
+
+	</div>
+
+        <textarea id="result"></textarea>
+
+        <script src="../src/jquery.js"></script>
+        <script src="../src/default.js"></script>
+        <script>
+            dandy({"defaultAnswer":true,"ignoreNonKorean":false,"showDescription":true,"showHidden":false,"hiddenWords":["연속으로 촬영을 하는","패스트","하기 때문에"]});
+        </script>
+    </body>
+</html>

@@ -1,17 +1,16 @@
-# encoding: utf-8
-
 require 'net/http'
 require 'uri'
 
 # 기본 경로 설정
-home_dir = File.expand_path '~/.dandy'
+# home_dir = File.expand_path '~/.dandy'
+home_dir = File.expand_path '~/Projects/dandy/work'
 
 # 선택 문장 가져오기
-query_file = File.join home_dir, 'query.txt'
+query_file = File.join home_dir, 'query'
 query = File.read query_file
 
 # 임시로 사용한 선택 문장을 담은 파일 삭제
-File.delete query_file
+# File.delete query_file
 
 # 부산대 맞춤법/문법 검사기 접속
 uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201309/lib/PnuSpellerISAPI_201309.dll?Check'
@@ -34,15 +33,20 @@ rescue => e
     source = e
 end
 
+# 설정 파일 읽기
+config_file = File.join home_dir, 'config'
+config = File.read config_file
+
 # 템플릿 파일 읽기
-template_file = File.join home_dir, 'template.html'
+template_file = File.join home_dir, 'template'
 template = File.read template_file
 
 # 템플릿 채우기
-template.gsub! '{{source}}', source
+template.gsub! '{{source}}', source.force_encoding('utf-8')
+template.gsub! '{{config}}', config.force_encoding('utf-8')
 
 # 최종 결과 파일에 쓰기
-output_file = File.join home_dir, 'output.html'
+output_file = File.join home_dir, 'dandy.html'
 File.open(output_file, 'w') do |file|
     file.write template
 end

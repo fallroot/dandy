@@ -1,10 +1,21 @@
+# 원문 처리
 on run {input, parameters}
-    set file_path to POSIX path of (path to home folder) & ".dandy/query.txt"
+    set file_path to POSIX path of (path to home folder) & ".dandy/query"
     set open_file to (open for access (POSIX file file_path) with write permission)
     write input to open_file as «class utf8»
     close access open_file
 
-    do shell script "ruby ~/.dandy/run.rb"
+    do shell script "ruby -E utf-8 ~/.dandy/run.rb"
 
-    return "~/.dandy/output.html"
+    return "~/.dandy/dandy.html"
+end run
+
+# 결과 처리
+on run {input, parameters}
+    set file_path to POSIX path of (path to home folder) & ".dandy/result"
+    set open_file to (open for access (POSIX file file_path) with write permission)
+    write input to open_file as «class utf8»
+    close access open_file
+
+    do shell script "ruby -E utf-8 ~/Projects/dandy/work/finish.rb"
 end run

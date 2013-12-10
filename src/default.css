@@ -31,7 +31,6 @@ ul {
 /* 화면 */
 .screen {
     min-height: 100%;
-    position: absolute;
     width: 100%;
 }
 header {
@@ -53,13 +52,8 @@ header button {
 }
 
 /* 홈 */
-#home {
-    left: 0;
-    top: 0;
-    z-index: 2;
-}
-#home [data-action=settings] {
-    background: url(settings.png) no-repeat 50% 50%;
+#home [data-action=config] {
+    background: url(config.png) no-repeat 50% 50%;
     height: 50px;
     position: absolute;
     right: 0;
@@ -164,57 +158,67 @@ article button b {
 }
 
 /* 설정 */
-#settings {
+#config {
     background: #e5e5e5;
+    position: absolute;
     right: -1000px;
+    top: 0;
     transition: right .5s;
     z-index: 2;
 }
-[data-screen-id=settings] #settings {
+[data-screen-id=config] #config {
     right: 0;
 }
-#settings ul {
+#config ul {
     background: #fff;
     margin-top: 40px;
 }
-#settings li {
+#config li {
     border-bottom: 1px solid #e6e6e6;
     height: 40px;
     position: relative;
 }
-#settings label {
+#config label {
     display: block;
     height: 40px;
     line-height: 40px;
     margin-left: 20px;
 }
-#settings [type=checkbox] {
+#config [type=checkbox] {
     position: absolute;
     right: 20px;
     top: 6px;
 }
-#settings [data-action=home] {
+#config [data-action=home] {
     color: #08c;
     font-size: 18px;
     position: absolute;
     right: 10px;
     top: 0;
 }
-#settings p {
+#config p {
     font-size: 12px;
     /*line-height: 2em;*/
     /*margin-top: 10px;*/
     padding: 10px 20px;
 }
-#settings p:first-of-type {
+#config p:first-of-type {
     margin-top: 20px;
 }
 
 /* 결과 값 저장 */
 #result {
-    display: none;
+    left: -1000px;
+    position: absolute;
+    top: -1000px;
 }
 
+.stats {
+    background: #e5e5e5;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, .5);
+    /*margin-top: 1px;*/
+    padding: 20px;
+}
 p.error, p.passed {
     background-position: 50% 0;
     background-repeat: no-repeat;

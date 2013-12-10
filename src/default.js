@@ -19,11 +19,12 @@
         restore: '<b>&#10003;</b>감추기 해제'
     };
 
+    var result  = {};
     var answers = {};
-    var settings;
+    var config;
 
     function init() {
-        settings = arguments[0];
+        config = arguments[0];
 
         initHandler();
         initDataset();
@@ -49,7 +50,7 @@
             var action = self.dataset('action');
             var parent = self.closest('[data-query]');
             var query  = parent.dataset('query');
-            var words  = settings.hiddenWords;
+            var words  = config.hiddenWords;
 
             if (action == 'forget') {
                 self.dataset('action', 'restore');
@@ -68,11 +69,11 @@
             changeResult();
         });
 
-        $('#settings').on('change', ':checkbox', function(event) {
+        $('#config').on('change', ':checkbox', function(event) {
             var key   = this.id;
             var value = this.checked;
 
-            settings[$.camelCase(key)] = value;
+            config[$.camelCase(key)] = value;
 
             $('#answers').dataset(key, value);
 
@@ -95,9 +96,9 @@
     function initDataset() {
         var el = $('#answers');
 
-        el.dataset('ignore-non-korean', !!settings.ignoreNonKorean);
-        el.dataset('show-description', !!settings.showDescription);
-        el.dataset('show-hidden', !!settings.showHidden);
+        el.dataset('ignore-non-korean', !!config.ignoreNonKorean);
+        el.dataset('show-description', !!config.showDescription);
+        el.dataset('show-hidden', !!config.showHidden);
     }
 
     function initAnswers() {
@@ -115,13 +116,16 @@
     }
 
     function initSettings() {
-        $('#default-answer').prop('checked', !!settings.defaultAnswer);
-        $('#ignore-non-korean').prop('checked', !!settings.ignoreNonKorean);
-        $('#show-description').prop('checked', !!settings.showDescription);
-        $('#show-hidden').prop('checked', !!settings.showHidden);
+        $('#default-answer').prop('checked', !!config.defaultAnswer);
+        $('#ignore-non-korean').prop('checked', !!config.ignoreNonKorean);
+        $('#show-description').prop('checked', !!config.showDescription);
+        $('#show-hidden').prop('checked', !!config.showHidden);
     }
 
     function showAnswers() {
+        var nonKoreanCount = 0;
+        var hiddenCount    = 0;
+
         $('#source .tableErrCorrect').each(function(index) {
             var self = $(this);
 
@@ -135,11 +139,12 @@
 
             answers[query] = '';
 
-            var hidden = settings.hiddenWords.indexOf(query) >= 0;
+            var hidden = config.hiddenWords.indexOf(query) >= 0;
+            var korean = reKorean.test(query);
 
             var article = $('<article/>');
             article.dataset('query', query);
-            article.dataset('korean', reKorean.test(query));
+            article.dataset('korean', korean);
             article.dataset('hidden', hidden);
             article.dataset('default-answer', true);
 
@@ -147,14 +152,14 @@
             h1.html(query);
             h1.appendTo(article);
 
+            var wrap = $('<p/>');
+            wrap.addClass('answer');
+            wrap.appendTo(article);
+
             var description = $('<p/>');
             description.addClass('description');
             description.html(comment);
             description.appendTo(article);
-
-            var wrap = $('<p/>');
-            wrap.addClass('answer');
-            wrap.appendTo(article);
 
             var forget = $('<button/>');
             forget.attr({
@@ -184,7 +189,36 @@
             });
 
             article.appendTo('#answers');
+
+            if (hidden) {
+                hiddenCount += 1;
+            }
+
+            if (!korean) {
+                nonKoreanCount += 1;
+            }
         });
+
+        if (hiddenCount > 0 || nonKoreanCount > 0) {
+            showStats(hiddenCount, nonKoreanCount);
+        }
+    }
+
+    function showStats(hidden, nonKorean) {
+        var messages = [];
+
+        if (nonKorean > 0) {
+            messages.push('한글이 없는 단어가 ' + nonKorean + '개');
+        }
+
+        if (hidden > 0) {
+            messages.push('감춘 단어가 ' + hidden + '개');
+        }
+
+        var p = $('<p/>');
+        p.addClass('stats');
+        p.html(messages.join(' / ') + ' 있습니다.');
+        p.prependTo('#answers');
     }
 
     function success() {
@@ -212,7 +246,7 @@
             value: options.answer || 'none'
         });
 
-        if (settings.defaultAnswer) {
+        if (config.defaultAnswer) {
             if (options.subIndex == 1) {
                 radio.prop('checked', true);
             }
@@ -256,12 +290,8 @@
             answers[query] = answer;
         });
 
-        var result = {
-            answers : answers,
-            settings: settings
-        };
-
-        console.log(result);
+        result.answers = answers;
+        result.config  = config;
 
         $('#result').html(JSON.stringify(result));
     }
