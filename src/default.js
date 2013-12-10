@@ -13,93 +13,22 @@
         }
     };
 
-    var source  = $('#source')[0];
-    var count   = $('#correctionTableSize')[0];
-    var answers = document.getElementById('answers');;
+    var source   = $('#source')[0];
+    var answers  = document.getElementById('answers');;
     var reKorean = /[가-힣]+/;
-    var result  = {};
+    var result   = {};
 
-    answers.dataset.ignoreNonKorean = !!settings.ignoreNonKorean;
-    answers.dataset.showDescription = !!settings.showDescription;
-
-    // correctionTableSize가 존재하면 파싱까지는 정상으로 본다.
-    if (count) {
-        // 문법 및 철자 오류가 있나?
-        if (parseInt(count.value)) {
-            var table = source.querySelectorAll('.tableErrCorrect');
-
-            [].slice.call(table).forEach(function(row, index) {
-                var query   = row.querySelector('.tdErrWord').innerHTML;
-                var answer  = row.querySelector('.tdReplace').innerHTML;
-                var comment = row.querySelector('.tdETNor').innerHTML;
-
-                if (result[query] !== undefined) {
-                    return;
-                }
-
-                result[query] = '';
-
-                var article = $('<article/>');
-                var h1 = $('<h1/>');
-                var description = $('<p/>');
-
-                description.addClass('description');
-
-                h1.html(query);
-                // h2.html(answer);
-                description.html(comment);
-
-                var p = $('<p/>');
-                p.addClass('answer');
-
-                article.append(h1);
-                article.append(p);
-                article.append(description);
-
-                // 선택 안 함 버튼
-                createAnswer({
-                    parent: p,
-                    index : index
-                });
-
-                answer.split(/\s*<br>\s*/i).forEach(function(answer, subIndex) {
-                    if (!answer) {
-                        return;
-                    }
-
-                    createAnswer({
-                        parent  : p,
-                        query   : query,
-                        answer  : answer,
-                        index   : index,
-                        subIndex: subIndex + 1
-                    });
-                });
-
-                article.appendTo(answers);
-
-                article.dataset('korean', reKorean.test(query));
-            });
-        } else {
-            var p = $('<p/>');
-            p.addClass('passed');
-            p.html('문법 및 철자 오류가 발견되지 않았습니다.');
-
-            p.appendTo(answers);
-        }
-    } else {
-        var p = $('<p/>');
-        p.addClass('error');
-        p.html(source.innerHTML);
-
-        p.appendTo(answers);
+    function init() {
+        initHandler();
+        initDataset();
+        initAnswers();
+        initSettings();
     }
 
     function initHandler() {
         $('#settings').on('webkitTransitionEnd', function(event) {
             var screen = $('body').dataset('screen-id');
 
-            console.log(screen);
             $(screen == 'home' ? '#settings' : '#home').removeClass('active').hide();
         });
 
@@ -146,11 +75,104 @@
         });
     }
 
+    function initDataset() {
+        answers.dataset.ignoreNonKorean = !!settings.ignoreNonKorean;
+        answers.dataset.showDescription = !!settings.showDescription;
+    }
+
+    function initAnswers() {
+        var count = $('#correctionTableSize');
+
+        if (count.length) {
+            if (count.val()) {
+                showAnswers();
+            } else {
+                success();
+            }
+        } else {
+            fail();
+        }
+    }
+
+    function initSettings() {
+        $('#default-answer').prop('checked', !!settings.defaultAnswer);
+        $('#ignore-non-korean').prop('checked', !!settings.ignoreNonKorean);
+        $('#show-description').prop('checked', !!settings.showDescription);
+    }
+
+    function showAnswers() {
+        var table = source.querySelectorAll('.tableErrCorrect');
+
+        [].slice.call(table).forEach(function(row, index) {
+            var query   = row.querySelector('.tdErrWord').innerHTML;
+            var answer  = row.querySelector('.tdReplace').innerHTML;
+            var comment = row.querySelector('.tdETNor').innerHTML;
+
+            if (result[query] !== undefined) {
+                return;
+            }
+
+            result[query] = '';
+
+            var h1 = $('<h1/>');
+            h1.html(query);
+
+            var description = $('<p/>');
+            description.addClass('description');
+            description.html(comment);
+
+            var p = $('<p/>');
+            p.addClass('answer');
+
+            var article = $('<article/>');
+            article.append(h1);
+            article.append(p);
+            article.append(description);
+
+            // 선택 안 함 버튼
+            createAnswer({
+                parent: p,
+                index : index
+            });
+
+            answer.split(/\s*<br>\s*/i).forEach(function(answer, subIndex) {
+                if (!answer) {
+                    return;
+                }
+
+                createAnswer({
+                    parent  : p,
+                    query   : query,
+                    answer  : answer,
+                    index   : index,
+                    subIndex: subIndex + 1
+                });
+            });
+
+            article.appendTo(answers);
+
+            article.dataset('korean', reKorean.test(query));
+        });
+    }
+
+    function success() {
+        var p = $('<p/>');
+        p.addClass('passed');
+        p.html('문법 및 철자 오류가 발견되지 않았습니다.');
+        p.appendTo(answers);
+    }
+
+    function fail() {
+        var p = $('<p/>');
+        p.addClass('error');
+        p.html(source.innerHTML);
+        p.appendTo(answers);
+    }
+
     function createAnswer(options) {
         var id = ['answer', options.index, options.subIndex || 0].join('-');
 
         var radio = $('<input/>');
-
         radio.attr({
             id   : id,
             type : 'radio',
@@ -165,7 +187,6 @@
         }
 
         var label = $('<label/>');
-
         label.attr('for', id);
         label.html(options.answer || '&times;');
 
@@ -173,5 +194,5 @@
         options.parent.append(label);
     }
 
-    initHandler();
+    init();
 // })(window);
