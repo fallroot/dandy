@@ -1,5 +1,5 @@
-// (function(window, undefined) {
-//     'use strict';
+(function(window, undefined) {
+    'use strict';
 
     $.fn.dataset = function(key, value) {
         var field = 'data-' + key;
@@ -13,16 +13,21 @@
         }
     };
 
-    var source   = $('#source')[0];
-    var answers  = document.getElementById('answers');;
+    var source  = $('#source')[0];
+    var answers = document.getElementById('answers');;
+
     var reKorean = /[가-힣]+/;
     var text = {
         forget : '<b>&times;</b>계속 감추기',
         restore: '<b>&#10003;</b>감추기 해제'
     };
-    var result   = {};
+
+    var result = {};
+    var settings;
 
     function init() {
+        settings = arguments[0];
+
         initHandler();
         initDataset();
         initAnswers();
@@ -57,11 +62,6 @@
 
             parent.dataset('hidden', action == 'forget');
         });
-
-        // $('toggle-settings').addEventListener('click', function(event) {
-        //     // event.preventDefault();
-        //     $('settings').classList.toggle('active');
-        // });;
 
         $('#default-answer').on('change', function(event) {
             answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
@@ -157,7 +157,6 @@
             article.append(description);
             article.append(forget);
 
-            // 선택 안 함 버튼
             createAnswer({
                 parent: p,
                 index : index
@@ -220,5 +219,6 @@
         options.parent.append(label);
     }
 
-    init();
-// })(window);
+    window.dandy = init;
+
+})(window);
