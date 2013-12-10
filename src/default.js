@@ -41,6 +41,13 @@
             $('body').dataset('screen-id', action);
         });
 
+        $(answers).on('change', ':checkbox', function(event) {
+            var el = event.target;
+            var query = el.parentNode.previousSibling.innerHTML;
+
+            result[query] = el.value;
+        });
+
         $('#answers').on('click', 'button', function(event) {
             var self   = $(this);
             var action = self.dataset('action');
@@ -63,27 +70,9 @@
             parent.dataset('hidden', action == 'forget');
         });
 
-        $('#default-answer').on('change', function(event) {
-            answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
-        });
-
-        $('#ignore-non-korean').on('change', function(event) {
-            answers.dataset.ignoreNonKorean = settings.ignoreNonKorean = this.checked;
-        });
-
-        $('#show-description').on('change', function(event) {
-            answers.dataset.showDescription = settings.showDescription = this.checked;
-        });
-
-        $('#show-hidden').on('change', function(event) {
-            answers.dataset.showHidden = settings.showHidden = this.checked;
-        });
-
-        $(answers).on('change', ':checkbox', function(event) {
-            var el = event.target;
-            var query = el.parentNode.previousSibling.innerHTML;
-
-            result[query] = el.value;
+        $('#settings').on('change', ':checkbox', function(event) {
+            var key = $.camelCase(this.id);
+            answers.dataset[key] = settings[key] = this.checked;
         });
     }
 
