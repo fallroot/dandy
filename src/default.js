@@ -38,7 +38,11 @@
             $('body').dataset('screen-id', action);
         });
 
-        $('#answers').on('change', ':radio', changeResult);
+        $('#answers').on('change', ':radio', function() {
+            $(this).closest('[data-query]').dataset('default-answer', false);
+
+            changeResult();
+        });
 
         $('#answers').on('click', 'button', function(event) {
             var self   = $(this);
@@ -74,6 +78,10 @@
 
             if (key == 'show-description') {
                 return;
+            }
+
+            if (key == 'default-answer') {
+                $('#answers [data-default-answer=true] [type=radio]:nth-of-type(' + (value ? 2 : 1) + ')').prop('checked', true);
             }
 
             changeResult();
@@ -133,16 +141,20 @@
             article.dataset('query', query);
             article.dataset('korean', reKorean.test(query));
             article.dataset('hidden', hidden);
+            article.dataset('default-answer', true);
 
             var h1 = $('<h1/>');
             h1.html(query);
+            h1.appendTo(article);
 
             var description = $('<p/>');
             description.addClass('description');
             description.html(comment);
+            description.appendTo(article);
 
-            var p = $('<p/>');
-            p.addClass('answer');
+            var wrap = $('<p/>');
+            wrap.addClass('answer');
+            wrap.appendTo(article);
 
             var forget = $('<button/>');
             forget.attr({
@@ -150,14 +162,10 @@
             });
             forget.dataset('action', hidden ? 'restore' : 'forget');
             forget.html(hidden ? text.restore : text.forget);
-
-            article.append(h1);
-            article.append(p);
-            article.append(description);
-            article.append(forget);
+            forget.appendTo(article);
 
             createAnswer({
-                parent: p,
+                parent: wrap,
                 index : index
             });
 
@@ -167,7 +175,7 @@
                 }
 
                 createAnswer({
-                    parent  : p,
+                    parent  : wrap,
                     query   : query,
                     answer  : answer,
                     index   : index,
@@ -204,11 +212,16 @@
             value: options.answer || 'none'
         });
 
-        if (settings.defaultAnswer && options.subIndex == 1) {
-            radio.prop('checked', true);
-
-            answers[options.query] = options.answer;
+        if (settings.defaultAnswer) {
+            if (options.subIndex == 1) {
+                radio.prop('checked', true);
+            }
+        } else {
+            if (!options.subIndex) {
+                radio.prop('checked', true);
+            }
         }
+
 
         var label = $('<label/>');
         label.attr('for', id);
@@ -228,7 +241,7 @@
             var query  = self.dataset('query');
             var answer = self.find(':checked').val();
 
-            if (answer == 'none') {
+            if (!answer || answer == 'none') {
                 return;
             }
 
@@ -248,7 +261,9 @@
             settings: settings
         };
 
-        $('#result').html(JSON.stringify(settings));
+        console.log(result);
+
+        $('#result').html(JSON.stringify(result));
     }
 
     window.dandy = init;
