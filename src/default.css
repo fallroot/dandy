@@ -10,10 +10,15 @@ html, body {
 }
 body {
     color: #000;
-    font: 14px/1.5 NanumBarunGothic, "Apple SD Gothic Neo", NanumGothic, sans-serif;
+    font: 14px/1.25 "Apple SD Gothic Neo", NanumBarunGothic, NanumGothic, sans-serif;
 }
 a, button, label {
     cursor: pointer;
+}
+a {
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
 }
 button {
     background: transparent;
@@ -29,49 +34,6 @@ ul {
     position: absolute;
     width: 100%;
 }
-#home {
-    left: 0;
-    top: 0;
-    z-index: 2;
-}
-#home [data-action=settings] {
-    background: url(settings.png) no-repeat 50% 50%;
-    height: 50px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 50px;
-}
-#settings [data-action=home] {
-    color: #08c;
-    font-size: 18px;
-    position: absolute;
-    right: 10px;
-    top: 0;
-}
-
-[data-screen-id=home] #home {
-}
-#settings {
-    background: #c7c7c7;
-    right: -1000px;
-    /*display: none;*/
-    /*z-index: -1;*/
-    z-index: 3;
-    -webkit-transition: right 1s;
-}
-#settings.active {
-    right: 0;
-}
-#settings .content {
-    padding: 20px;
-}
-/*
-[data-screen-id=settings] #settings {
-    bottom: 0;
-    z-index: 3;
-}
-*/
 header {
     background: #f8f8f8;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
@@ -86,20 +48,17 @@ header button {
     height: 50px;
     line-height: 50px;
 }
-
-/*
-#settings {
-    background: #fff;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+#source {
     display: none;
-    position: absolute;
-    right: 0;
-    top: 50px;
 }
-#settings.active {
-    display: block;
+
+/* 홈 */
+#home {
+    left: 0;
+    top: 0;
+    z-index: 2;
 }
-#toggle-settings {
+#home [data-action=settings] {
     background: url(settings.png) no-repeat 50% 50%;
     height: 50px;
     position: absolute;
@@ -107,48 +66,150 @@ header button {
     top: 0;
     width: 50px;
 }
-*/
-a {
-    color: inherit;
-    font: inherit;
-    text-decoration: none;
-}
-section {
-/*    bottom: 30px;
-    overflow: auto;
-    position: absolute;
-    top: 50px;
-    width: 100%;
-*/
-}
-h1, h2 {
-    /*font-family: "HCR Dotum", SeoulNamsan, "Apple SD Gothic Neo", NanumGothic, sans-serif;*/
-}
-article {
-    /*background-image: -webkit-linear-gradient(top, #eee 0, #fff 10px);*/
-    /*box-shadow: 0 -1px rgba(0,0,0,0.08),0 1px rgba(0,0,0,0.07),0 1px 1px rgba(0,0,0,0.05);*/
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
-    padding: 1em;
-}
-    article h1 {
-        /*color: #b82647;*/
-        font-size: 18px;
-    }
-    article h2 {
-        color: #0b6db7;
-        font-size: 16px;
-    }
-        article h2 span {
-            color: #ccc;
-            margin: 0 .25em;
-        }
 
-[data-show-description=false] article .description {
-    display: none;
+/* 대치어 단락 */
+article {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    padding: 15px;
+    position: relative;
 }
+article:hover {
+    background: #e5e5e5;
+    transition: background .5s;
+}
+article h1 {
+    font-size: 18px;
+}
+article h2 {
+    color: #0b6db7;
+    font-size: 16px;
+}
+article h2 span {
+    color: #ccc;
+    margin: 0 .25em;
+}
+
+/* 대치어 */
+.answer {
+    margin-top: 10px;
+}
+.answer label {
+    background: #fff;
+    border: 1px solid #2087fc;
+    border-left: 0;
+    color: #2087fc;
+    display: inline-block;
+    padding: 10px;
+    transition: background .5s;
+}
+.answer label:first-of-type {
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid #2087fc;
+    border-top-left-radius: 5px;
+}
+.answer label:last-of-type {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.answer input[type=radio] {
+    display: none;
+    transition: background-color 1s;
+}
+.answer input[type=radio]:checked + label {
+    background: #2087fc;
+    color: #e0eaf5;
+}
+.answer label:hover {
+    background: #dde9f5;
+}
+
+/* 대치어 감추기 버튼 */
+article button {
+    border-radius: 5px;
+    color: #fff;
+    display: none;
+    font-size: 12px;
+    padding: 5px 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+article:hover button {
+    display: block;
+}
+article button b {
+    display: inline-block;
+    font-family: "Apple SD Gothic Neo";
+    font-size: 20px;
+    font-weight: normal;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+[data-action=forget] {
+    background: #fd3c31;
+}
+[data-action=restore] {
+    background: #46ca5e;
+}
+
+/* 대치어 필드 */
 [data-ignore-non-korean=true] [data-korean=false] {
     display: none;
 }
+[data-show-description=false] article .description {
+    display: none;
+}
+[data-show-hidden=false] [data-hidden=true] {
+    display: none;
+}
+
+/* 설정 */
+#settings {
+    background: #e5e5e5;
+    right: -1000px;
+    transition: right .5s;
+    z-index: 2;
+}
+[data-screen-id=settings] #settings {
+    right: 0;
+}
+#settings ul {
+    background: #fff;
+    margin-top: 40px;
+}
+#settings li {
+    border-bottom: 1px solid #e6e6e6;
+    height: 40px;
+    position: relative;
+}
+#settings label {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+}
+#settings [type=checkbox] {
+    position: absolute;
+    right: 20px;
+    top: 6px;
+}
+#settings [data-action=home] {
+    color: #08c;
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+#settings p {
+    font-size: 12px;
+    /*line-height: 2em;*/
+    /*margin-top: 10px;*/
+    padding: 10px 20px;
+}
+#settings p:first-of-type {
+    margin-top: 20px;
+}
+
 p.error, p.passed {
     background-position: 50% 0;
     background-repeat: no-repeat;
@@ -167,52 +228,16 @@ footer {
     bottom: 0;
     box-sizing: border-box;
     color: #fff;
-    font: 12px "Apple SD Gothic Neo", NanumGothic, sans-serif;
+    font-size: 12px;
     height: 30px;
     line-height: 30px;
     position: fixed;
     text-align: center;
     width: 100%;
 }
-#source {
-    display: none;
-}
-
-.answer {
-    margin-top: 10px;
-}
-.answer label {
-    border: 1px solid #2087fc;
-    border-left: 0;
-    color: #2087fc;
-    display: inline-block;
-    padding: 10px;
-}
-.answer label:first-of-type {
-    border-bottom-left-radius: 5px;
-    border-left: 1px solid #2087fc;
-    border-top-left-radius: 5px;
-}
-.answer label:last-of-type {
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-}
-.answer input[type=radio] {
-    display: none;
-    -webkit-transition: background-color 1s;
-}
-.answer input[type=radio]:checked + label {
-    background: #2087fc;
-    color: #e0eaf5;
-}
-.answer label:hover {
-    background: #dde9f5;
-}
 
 /* iOS 스타일 체크박스 */
 input[type=checkbox] {
-    appearance: none;
-    background-color: darken(#fff, 2%);
     border: 1px solid #d3d3d3;
     border-radius: 26px;
     box-shadow: inset 0 0 0 1px #d3d3d3;
@@ -220,19 +245,19 @@ input[type=checkbox] {
     height: 28px;
     position: relative;
     transition: border .25s .15s,
-              box-shadow .25s .3s,
-              padding .25s;
+                box-shadow .25s .3s,
+                padding .25s;
     width: 44px;
-    vertical-align: top;
+    -webkit-appearance: none;
 }
 input[type=checkbox]:after {
     background-color: #fff;
     border: 1px solid #d3d3d3;
     border-radius: 24px;
-    box-shadow: inset 0 -3px 3px hsla(0,0%,0%,.025),
-                0 1px 4px hsla(0,0%,0%,.15),
-                0 4px 4px hsla(0,0%,0%,.1);
-    content: '';
+    box-shadow: inset 0 -3px 3px hsla(0, 0%, 0%, .025),
+                0 1px 4px hsla(0, 0%, 0%, .15),
+                0 4px 4px hsla(0, 0%, 0%, .1);
+    content: "";
     display: block;
     height: 24px;
     left: 0;

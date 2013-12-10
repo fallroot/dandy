@@ -16,6 +16,10 @@
     var source   = $('#source')[0];
     var answers  = document.getElementById('answers');;
     var reKorean = /[가-힣]+/;
+    var text = {
+        forget : '<b>&times;</b>계속 감추기',
+        restore: '<b>&#10003;</b>감추기 해제'
+    };
     var result   = {};
 
     function init() {
@@ -26,28 +30,32 @@
     }
 
     function initHandler() {
-        $('#settings').on('webkitTransitionEnd', function(event) {
-            var screen = $('body').dataset('screen-id');
-
-            $(screen == 'home' ? '#settings' : '#home').removeClass('active').hide();
-        });
-
         $('header').on('click', '[data-action]', function(event) {
             var action = $(this).dataset('action');
-            console.log('action', action);
-
-            if (action == 'home') {
-                $('#settings').removeClass('active');
-                $('#home').show();
-                // $('#settings').on('webkitTransitionEnd', function(event) {
-                //     console.log('settings#hide');
-                //     $(this).hide();
-                // });
-            } else if (action == 'settings') {
-                $('#settings').show().addClass('active');
-            }
 
             $('body').dataset('screen-id', action);
+        });
+
+        $('#answers').on('click', 'button', function(event) {
+            var self   = $(this);
+            var action = self.dataset('action');
+            var parent = self.closest('[data-query]');
+            var query  = parent.dataset('query');
+            var words  = settings.hiddenWords;
+
+            if (action == 'forget') {
+                self.dataset('action', 'restore');
+                self.html(text.restore);
+
+                words.push(query);
+            } else {
+                self.dataset('action', 'forget');
+                self.html(text.forget);
+
+                words.splice(words.indexOf(query), 1);
+            }
+
+            parent.dataset('hidden', action == 'forget');
         });
 
         // $('toggle-settings').addEventListener('click', function(event) {
@@ -55,16 +63,20 @@
         //     $('settings').classList.toggle('active');
         // });;
 
-        $('#show-description').on('change', function(event) {
-            answers.dataset.showDescription = settings.showDescription = this.checked;
-        });
-
         $('#default-answer').on('change', function(event) {
             answers.dataset.defaultAnswer = settings.defaultAnswer = this.checked;
         });
 
         $('#ignore-non-korean').on('change', function(event) {
             answers.dataset.ignoreNonKorean = settings.ignoreNonKorean = this.checked;
+        });
+
+        $('#show-description').on('change', function(event) {
+            answers.dataset.showDescription = settings.showDescription = this.checked;
+        });
+
+        $('#show-hidden').on('change', function(event) {
+            answers.dataset.showHidden = settings.showHidden = this.checked;
         });
 
         $(answers).on('change', ':checkbox', function(event) {
@@ -78,6 +90,7 @@
     function initDataset() {
         answers.dataset.ignoreNonKorean = !!settings.ignoreNonKorean;
         answers.dataset.showDescription = !!settings.showDescription;
+        answers.dataset.showHidden      = !!settings.showHidden;
     }
 
     function initAnswers() {
@@ -98,6 +111,7 @@
         $('#default-answer').prop('checked', !!settings.defaultAnswer);
         $('#ignore-non-korean').prop('checked', !!settings.ignoreNonKorean);
         $('#show-description').prop('checked', !!settings.showDescription);
+        $('#show-hidden').prop('checked', !!settings.showHidden);
     }
 
     function showAnswers() {
@@ -114,6 +128,13 @@
 
             result[query] = '';
 
+            var hidden = settings.hiddenWords.indexOf(query) >= 0;
+
+            var article = $('<article/>');
+            article.dataset('query', query);
+            article.dataset('korean', reKorean.test(query));
+            article.dataset('hidden', hidden);
+
             var h1 = $('<h1/>');
             h1.html(query);
 
@@ -124,10 +145,17 @@
             var p = $('<p/>');
             p.addClass('answer');
 
-            var article = $('<article/>');
+            var forget = $('<button/>');
+            forget.attr({
+                type: 'button'
+            });
+            forget.dataset('action', hidden ? 'restore' : 'forget');
+            forget.html(hidden ? text.restore : text.forget);
+
             article.append(h1);
             article.append(p);
             article.append(description);
+            article.append(forget);
 
             // 선택 안 함 버튼
             createAnswer({
@@ -150,8 +178,6 @@
             });
 
             article.appendTo(answers);
-
-            article.dataset('korean', reKorean.test(query));
         });
     }
 

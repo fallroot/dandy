@@ -34,7 +34,14 @@
                             <label for="ignore-non-korean">한글이 없는 단어 제외</label>
                             <input id="ignore-non-korean" type="checkbox">
                         </li>
+                        <li>
+                            <label for="show-hidden">감춘 단어 보기</label>
+                            <input id="show-hidden" type="checkbox">
+                        </li>
                     </ul>
+                    <p>“단디”는 부산대학교 인공지능연구실과 (주)나라인포테크가 공동으로 만들어 제공하는 “한국어 맞춤법/문법 검사기”를 맥에서 쉽게 사용할 수 있도록 해 주는 도구입니다.</p>
+                    <p>“단디”는 위 두 곳과 아무 관련이 없으며 원천 서비스 제공 업체의 정책에 따라 언제든지 서비스가 중단될 수 있습니다.</p>
+                    <p>“단디”에 대해 궁금한 점은 홈페이지(<a href="http://fallroot.github.io/dandy/">fallroot.github.io/dandy/</a>) 또는 제작자(<a href="http://twitter.com/fallroot">@fallroot</a>)에게 문의 바랍니다.</p>
                 </div>
             </section>
         <!-- </div> -->
@@ -456,7 +463,9 @@ X<font id='ul_4' color='blue' class='ul' onclick="fShowHelp('4')" >6는</font> �
             var settings = {
                 defaultAnswer  : true,
                 ignoreNonKorean: true,
-                showDescription: true
+                showDescription: true,
+                showHidden     : true,
+                hiddenWords    : ['모드를']
             };
         </script>
         <script src="../src/jquery.js"></script>
