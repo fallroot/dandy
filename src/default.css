@@ -210,6 +210,11 @@ article button b {
     margin-top: 20px;
 }
 
+/* 결과 값 저장 */
+#result {
+    display: none;
+}
+
 p.error, p.passed {
     background-position: 50% 0;
     background-repeat: no-repeat;
