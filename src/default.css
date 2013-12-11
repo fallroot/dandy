@@ -219,30 +219,40 @@ article button b {
     /*margin-top: 1px;*/
     padding: 20px;
 }
-p.error, p.passed {
-    background-position: 50% 0;
-    background-repeat: no-repeat;
+
+/* 결과 메시지 */
+.error, .passed {
+    display: none;
     margin-top: 100px;
     padding-top: 100px;
+    position: relative;
     text-align: center;
 }
-    p.error {
-        background-image: url(error.png);
-    }
-    p.passed {
-        background-image: url(passed.png);
-    }
-footer {
-    background: #494949;
-    bottom: 0;
-    box-sizing: border-box;
+.error:before, .passed:before {
+    border-radius: 50%;
     color: #fff;
-    font-size: 12px;
-    height: 30px;
-    line-height: 30px;
-    position: fixed;
-    text-align: center;
-    width: 100%;
+    display: block;
+    font-size: 48px;
+    height: 50px;
+    left: 50%;
+    margin-left: -25px;
+    position: absolute;
+    top: 0;
+    width: 50px;
+}
+.error:before {
+    background: #fd3c31;
+    content: "\d7";
+}
+.passed:before {
+    background: #46ca5e;
+    content: "\2713";
+}
+[data-status=error] .error {
+    display: block;
+}
+[data-status=passed] .passed {
+    display: block;
 }
 
 /* iOS 스타일 체크박스 */

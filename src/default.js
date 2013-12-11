@@ -16,7 +16,7 @@
     var reKorean = /[가-힣]+/;
     var text = {
         forget : '<b>&times;</b>계속 감추기',
-        restore: '<b>&#10003;</b>감추기 해제'
+        restore: '<b>&#x2713;</b>감추기 해제'
     };
 
     var result  = {};
@@ -202,6 +202,8 @@
         if (hiddenCount > 0 || nonKoreanCount > 0) {
             showStats(hiddenCount, nonKoreanCount);
         }
+
+        changeResult();
     }
 
     function showStats(hidden, nonKorean) {
@@ -222,17 +224,11 @@
     }
 
     function success() {
-        var p = $('<p/>');
-        p.addClass('passed');
-        p.html('문법 및 철자 오류가 발견되지 않았습니다.');
-        p.appendTo('#answers');
+        $('body').dataset('status', 'passed');
     }
 
     function fail() {
-        var p = $('<p/>');
-        p.addClass('error');
-        p.html(source.innerHTML);
-        p.appendTo('#answers');
+        $('body').dataset('status', 'error');
     }
 
     function createAnswer(options) {
@@ -268,22 +264,26 @@
     function changeResult() {
         var excludeKorean = $('#ignore-non-korean').prop('checked');
         var excludeHidden = !$('#show-hidden').prop('checked');
+
         var answers = {};
+        var count   = 0;
 
         $('#answers [data-query]').each(function() {
             var self   = $(this);
             var query  = self.dataset('query');
             var answer = self.find(':checked').val();
 
-            if (!answer || answer == 'none') {
-                return;
-            }
-
             if (excludeKorean && !reKorean.test(query)) {
                 return;
             }
 
             if (excludeHidden && self.dataset('hidden') == 'true') {
+                return;
+            }
+
+            count += 1;
+
+            if (!answer || answer == 'none') {
                 return;
             }
 
@@ -294,6 +294,12 @@
         result.config  = config;
 
         $('#result').html(JSON.stringify(result));
+
+        if (count) {
+            $('body').dataset('status', null);
+        } else {
+            $('body').dataset('status', 'passed');
+        }
     }
 
     window.dandy = init;
