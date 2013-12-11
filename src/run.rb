@@ -2,15 +2,11 @@ require 'net/http'
 require 'uri'
 
 # 기본 경로 설정
-# home_dir = File.expand_path '~/.dandy'
-home_dir = File.expand_path '~/Projects/dandy/work'
+home_dir = File.expand_path '~/.dandy'
 
 # 선택 문장 가져오기
 query_file = File.join home_dir, 'query'
 query = File.read query_file
-
-# 임시로 사용한 선택 문장을 담은 파일 삭제
-# File.delete query_file
 
 # 부산대 맞춤법/문법 검사기 접속
 uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201309/lib/PnuSpellerISAPI_201309.dll?Check'

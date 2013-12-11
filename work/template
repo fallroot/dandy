@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>한국어 맞춤법 검사기</title>
-        <link rel="stylesheet" type="text/css" href="../src/default.css">
+        <link rel="stylesheet" type="text/css" href="../src/dandy.css">
     </head>
     <body data-screen-id="home">
         <section id="home" class="screen">
@@ -49,7 +49,7 @@
         <textarea id="result"></textarea>
 
         <script src="../src/jquery.js"></script>
-        <script src="../src/default.js"></script>
+        <script src="../src/dandy.js"></script>
         <script>
             dandy({{config}});
         </script>

@@ -198,8 +198,6 @@ article button b {
 }
 #config p {
     font-size: 12px;
-    /*line-height: 2em;*/
-    /*margin-top: 10px;*/
     padding: 10px 20px;
 }
 #config p:first-of-type {
