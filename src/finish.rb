@@ -15,17 +15,20 @@ end
 
 # 선택 문장 가져오기
 query_file = File.join home_dir, 'query'
-query = File.read query_file
 
 # 대치어로 바꾸기
 answers = result['answers']
 
-answers.each do |key, value|
-    query.gsub! key, value
+unless answers.empty?
+    query = File.read query_file
+
+    answers.each do |key, value|
+        query.gsub! key, value
+    end
 end
 
-# 파일 삭제
+# 사용한 파일 삭제
 File.delete query_file
 File.delete result_file
 
-puts query
+puts query unless answers.empty?
