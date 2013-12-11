@@ -23,9 +23,7 @@ on run {input, parameters}
 
     set answer to do shell script "ruby -E utf-8 ~/.dandy/finish.rb"
 
-    if answer is equal to "" then
-        tell me to quit
-    else
+    if answer is not equal to "" then
         return answer
     end if
 end run
