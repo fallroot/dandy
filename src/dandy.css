@@ -225,6 +225,9 @@ article button b {
     position: relative;
     text-align: center;
 }
+.error br, .passed br {
+    line-height: 2em;
+}
 .error:before, .passed:before {
     border-radius: 50%;
     color: #fff;
