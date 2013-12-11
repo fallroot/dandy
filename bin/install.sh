@@ -17,7 +17,7 @@ echo "홈 디렉토리 아래 .dandy 디렉토리를 만듭니다."
 mkdir -p ~/.dandy
 
 echo "실행 파일을 내려받습니다."
-for file in dandy.css dandy.js config.png run.rb finish.rb config template; do
+for file in dandy.css jquery.js dandy.js config.png run.rb finish.rb config template; do
     curl https://raw.github.com/fallroot/dandy/develop/src/$file -o ~/.dandy/$file
 done
 
