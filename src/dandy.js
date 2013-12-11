@@ -42,7 +42,7 @@
         $('#answers').on('change', ':radio', function() {
             $(this).closest('[data-query]').dataset('default-answer', false);
 
-            changeResult();
+            saveAnswers();
         });
 
         $('#answers').on('click', 'button', function(event) {
@@ -66,7 +66,7 @@
 
             parent.dataset('hidden', action == 'forget');
 
-            changeResult();
+            saveAll();
         });
 
         $('#config').on('change', ':checkbox', function(event) {
@@ -74,6 +74,8 @@
             var value = this.checked;
 
             config[$.camelCase(key)] = value;
+
+            saveConfig();
 
             $('#answers').dataset(key, value);
 
@@ -85,7 +87,7 @@
                 $('#answers [data-default-answer=true] [type=radio]:nth-of-type(' + (value ? 2 : 1) + ')').prop('checked', true);
             }
 
-            changeResult();
+            saveAnswers();
         });
 
         window.setInterval(function() {
@@ -203,7 +205,7 @@
             showStats(hiddenCount, nonKoreanCount);
         }
 
-        changeResult();
+        saveAnswers();
     }
 
     function showStats(hidden, nonKorean) {
@@ -261,7 +263,7 @@
         options.parent.append(label);
     }
 
-    function changeResult() {
+    function saveAnswers() {
         var excludeKorean = $('#ignore-non-korean').prop('checked');
         var excludeHidden = !$('#show-hidden').prop('checked');
 
@@ -290,16 +292,30 @@
             answers[query] = answer;
         });
 
-        result.answers = answers;
-        result.config  = config;
-
-        $('#result').html(JSON.stringify(result));
-
         if (count) {
             $('body').dataset('status', null);
         } else {
             $('body').dataset('status', 'passed');
         }
+
+        result.answers = answers;
+
+        saveResult();
+    }
+
+    function saveConfig() {
+        result.config = config;
+
+        saveResult();
+    }
+
+    function saveAll() {
+        saveConfig();
+        saveAnswers();
+    }
+
+    function saveResult() {
+        $('#result').html(JSON.stringify(result));
     }
 
     window.dandy = init;
