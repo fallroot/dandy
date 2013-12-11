@@ -2,6 +2,8 @@
 on run {input, parameters}
     set file_path to POSIX path of (path to home folder) & ".dandy/query"
     set open_file to (open for access (POSIX file file_path) with write permission)
+    set eof open_file to 0
+
     write input to open_file as «class utf8»
     close access open_file
 
@@ -14,8 +16,16 @@ end run
 on run {input, parameters}
     set file_path to POSIX path of (path to home folder) & ".dandy/result"
     set open_file to (open for access (POSIX file file_path) with write permission)
+    set eof open_file to 0
+
     write input to open_file as «class utf8»
     close access open_file
 
-    do shell script "ruby -E utf-8 ~/Projects/dandy/work/finish.rb"
+    set answer to do shell script "ruby -E utf-8 ~/.dandy/finish.rb"
+
+    if answer is equal to "" then
+        tell me to quit
+    else
+        return answer
+    end if
 end run
