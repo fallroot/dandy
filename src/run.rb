@@ -8,6 +8,10 @@ home_dir = File.expand_path '~/.dandy'
 query_file = File.join home_dir, 'query'
 query = File.read query_file
 
+# 특수문자 처리
+query.gsub! 'OR', 'O||R'
+query.gsub! 'or', 'o||r'
+
 # 부산대 맞춤법/문법 검사기 접속
 uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201309/lib/PnuSpellerISAPI_201309.dll?Check'
 
