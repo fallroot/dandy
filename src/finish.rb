@@ -28,10 +28,6 @@ unless answers.empty?
     answers.each do |key, value|
         query.gsub!(key) {value}
     end
-
-    # 특수문자 처리
-    query.gsub! 'O||R', 'OR'
-    query.gsub! 'o||r', 'or'
 end
 
 # 사용한 파일 삭제
