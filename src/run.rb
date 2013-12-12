@@ -38,8 +38,8 @@ template_file = File.join home_dir, 'template'
 template = File.read template_file
 
 # 템플릿 채우기
-template.gsub! '{{source}}', source.force_encoding('utf-8')
-template.gsub! '{{config}}', config.force_encoding('utf-8')
+template.gsub!('{{source}}') {source.force_encoding('utf-8')}
+template.gsub!('{{config}}') {config.force_encoding('utf-8')}
 
 # 최종 결과 파일에 쓰기
 output_file = File.join home_dir, 'dandy.html'

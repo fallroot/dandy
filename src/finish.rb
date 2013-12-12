@@ -26,7 +26,7 @@ unless answers.empty?
     query = File.read query_file
 
     answers.each do |key, value|
-        query.gsub! key, value
+        query.gsub!(key) {value}
     end
 end
 
