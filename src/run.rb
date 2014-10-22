@@ -25,9 +25,9 @@ begin
     response = http.request request
     html = response.body.force_encoding("utf-8")
     # 필요한 데이터만 뽑아 내기
-    if html =~ /\s*<form id='formBugReport'[^>]+>(.*?)<\/form>/im
+    if html =~ /<form id='formBugReport'[^>]+>(.*?)<\/form>/im
         source = $1
-    elsif html =~ /문법 및 철자 오류가 발견되지 않았습니다./im
+    elsif html =~ /문법 및 철자 오류가 발견되지 않았습니다/im
         source = "문법 및 철자 오류가 발견되지 않았습니다."
     else
         source = "HTML 분석에 실패했습니다."
