@@ -14,7 +14,7 @@ query = File.read query_file
 File.delete query_file
 
 # 부산대 맞춤법/문법 검사기 접속
-uri = URI.parse 'http://speller.cs.pusan.ac.kr/PnuSpellerISAPI_201209/lib/PnuSpellerISAPI_201209.dll?Check'
+uri = URI.parse 'http://164.125.36.75/PnuSpellerISAPI_201107/lib/PnuSpellerISAPI_201107.dll?Check'
 
 http = Net::HTTP.new uri.host, uri.port
 
@@ -23,10 +23,12 @@ request.set_form_data 'text1' => query
 
 begin
     response = http.request request
-
+    html = response.body.force_encoding("utf-8")
     # 필요한 데이터만 뽑아 내기
-    if response.body =~ /\s*<form id='formBugReport1'[^>]+>(.*)<\/form>/im
+    if html =~ /<form id='formBugReport'[^>]+>(.*?)<\/form>/im
         source = $1
+    elsif html =~ /문법 및 철자 오류가 발견되지 않았습니다/im
+        source = "문법 및 철자 오류가 발견되지 않았습니다."
     else
         source = "HTML 분석에 실패했습니다."
     end
