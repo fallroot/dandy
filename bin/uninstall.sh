@@ -6,10 +6,10 @@
 # https://github.com/fallroot/dandy
 #
 # 설치
-# curl https://raw.github.com/fallroot/dandy/master/bin/install.sh | sh
+# curl https://raw.githubusercontent.com/fallroot/dandy/master/bin/install.sh | sh
 #
 # 삭제
-# curl https://raw.github.com/fallroot/dandy/master/bin/uninstall.sh | sh
+# curl https://raw.githubusercontent.com/fallroot/dandy/master/bin/uninstall.sh | sh
 
 echo "한국어 맞춤법/문법 검사기 도우 “단디”를 삭제합니다."
 

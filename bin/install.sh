@@ -6,10 +6,10 @@
 # https://github.com/fallroot/dandy
 #
 # 설치
-# curl https://raw.github.com/fallroot/dandy/master/bin/install.sh | sh
+# curl https://raw.githubusercontent.com/fallroot/dandy/master/bin/install.sh | sh
 #
 # 삭제
-# curl https://raw.github.com/fallroot/dandy/master/bin/uninstall.sh | sh
+# curl https://raw.githubusercontent.com/fallroot/dandy/master/bin/uninstall.sh | sh
 
 echo "한국어 맞춤법/문법 검사기 도우 “단디”를 설치합니다."
 
@@ -18,13 +18,15 @@ mkdir -p ~/.dandy
 
 echo "실행 파일을 내려받습니다."
 for file in default.css default.js error.png passed.png run.rb template.html; do
-    curl https://raw.github.com/fallroot/dandy/master/src/$file -o ~/.dandy/$file
+    #curl https://raw.githubusercontent.com/fallroot/dandy/master/src/$file -o ~/.dandy/$file
+    curl https://raw.githubusercontent.com/softdevstory/dandy/master/src/$file -o ~/.dandy/$file
 done
 
 echo "워크플로우 파일을 설치합니다."
 
 # 압축한 워크플로우 파일을 해제하여 서비스 디렉토리에 옮긴다.
-curl https://raw.github.com/fallroot/dandy/master/build/dandy.zip -o ~/.dandy/dandy.zip
+#curl https://raw.githubusercontent.com/fallroot/dandy/master/build/dandy.zip -o ~/.dandy/dandy.zip
+curl https://raw.githubusercontent.com/softdevstory/dandy/master/build/dandy.zip -o ~/.dandy/dandy.zip
 rm -f ~/Library/Services/._dandy.workflow
 unzip ~/.dandy/dandy.zip -d ~/Library/Services
 rm -f ~/.dandy/dandy.zip
